@@ -7,7 +7,6 @@ from django.core.cache import cache
 from django.test import Client, TestCase
 from django.urls import reverse
 
-from ..forms import PostForm
 from ..models import Comment, Follow, Group, Post
 
 User = get_user_model()
@@ -112,8 +111,6 @@ class PostPagesTests(TestCase):
                     post_param=post_param,
                     test_post_param=test_post_param):
                 self.assertEqual(post_param, test_post_param, )
-
-
 
     def test_create_post_show_correct_context2(self):
         """Шаблоны create и edit сформированы с правильным контекстом."""

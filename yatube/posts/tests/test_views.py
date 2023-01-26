@@ -3,19 +3,13 @@ from http import HTTPStatus
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.test import Client, TestCase
 from django.urls import reverse
 
 from ..forms import PostForm
-from ..models import Group, Post
-from http import HTTPStatus
-from django.contrib.auth import get_user_model
-from django.test import TestCase, Client
-from django import forms
-from ..models import Post, Group, Comment, Follow
-from django.urls import reverse
+from ..models import Comment, Follow, Group, Post
 
-from django.core.cache import cache
 User = get_user_model()
 
 

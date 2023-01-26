@@ -2,9 +2,9 @@ from http import HTTPStatus
 
 from django.test import Client, TestCase
 from django.urls import reverse
-from posts.forms import PostForm
 
-from posts.models import Group, Post, User, Comment
+from posts.forms import PostForm
+from posts.models import Comment, Group, Post, User
 
 
 class PostCreateFormTests(TestCase):

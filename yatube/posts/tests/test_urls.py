@@ -1,7 +1,6 @@
 from http import HTTPStatus
 
 from django.test import Client, TestCase
-
 from posts.models import Group, Post, User
 
 
@@ -68,7 +67,7 @@ class PostURLTests(TestCase):
 
     def test_post_edit_page_as_not_author(self):
         response = self.authorized_client.get(
-            f'/posts/{self.postFromAnotherUser.id}/edit/',)
+            f'/posts/{self.postFromAnotherUser.id}/edit/', )
         self.assertTrue(response.status_code in (301, 302), HTTPStatus.OK)
 
     def test_unexisting_page_url_exists_at_desired_location(self):

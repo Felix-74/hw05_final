@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models import TextField, CharField
 
 User = get_user_model()
 
@@ -20,7 +21,7 @@ class Group(models.Model):
         verbose_name = 'Группа'
         verbose_name_plural = 'Группы'
 
-    def __str__(self) -> str:
+    def __str__(self) -> CharField:
         return self.title
 
 
@@ -53,9 +54,9 @@ class Post(models.Model):
     class Meta:
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'
-        ordering = ('-pub_date', )
+        ordering = ('-pub_date',)
 
-    def __str__(self) -> str:
+    def __str__(self) -> TextField:
         return self.text
 
 
@@ -82,7 +83,7 @@ class Comment(models.Model):
     )
 
     class Meta:
-        ordering = ['-created']
+        ordering = ('-created',)
         verbose_name = 'Комментарий'
         verbose_name_plural = 'Комментарии'
 
@@ -101,3 +102,14 @@ class Follow(models.Model):
         on_delete=models.CASCADE,
         related_name='following'
     )
+
+    class Meta:
+        verbose_name = 'Подписчик'
+        verbose_name_plural = 'Подписчики'
+        constraints = (
+            models.UniqueConstraint(fields=['user', 'author'],
+                                    name='unique follower')
+        )
+
+    def __str__(self):
+        return f"{self.user.name} подписан на {self.author.name}"

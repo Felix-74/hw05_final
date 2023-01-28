@@ -1,4 +1,3 @@
-# Функция reverse_lazy позволяет получить URL по параметрам функции path()
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
 

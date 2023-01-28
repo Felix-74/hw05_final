@@ -303,13 +303,24 @@ class FollowTest(TestCase):
         """Новая запись появляется в ленте тех, кто на него подписан."""
         Follow.objects.create(user=self.user_follower,
                               author=self.user_following)
-        response = self.client_auth_follower.get('/follow/')
+        response = self.client_auth_follower.get(reverse('posts:follow_index'))
         post_text = response.context["page_obj"][0].text
         self.assertEqual(post_text, 'Тестовая запись для тестирования')
 
     def test_no_subscription(self):
         """Новая запись не появляется в ленте тех, кто не подписан."""
+        posts_response = self.client_auth_follower.get(reverse(
+            'posts:follow_index'))
+        self.assertTrue(
+            'page_obj' in posts_response.context,
+            'Context doesn\'t contains a page_obj')
+
+        posts_counts = posts_response.context['page_obj'].number
         Follow.objects.create(user=self.user_follower,
                               author=self.user_following)
-        response = self.client_auth_following.get('/follow/')
-        self.assertNotEqual(response, 'Тестовая запись для тестирования')
+        new_posts_response = self.client_auth_follower.get(reverse(
+            'posts:follow_index'))
+        self.assertEqual(
+            new_posts_response.context['page_obj'].number,
+            posts_counts,
+            'New post was in unsubscribed user\'s feed')

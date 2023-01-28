@@ -7,6 +7,11 @@ User = get_user_model()
 
 
 class PostForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['text'].widget.attrs['placeholder'] = 'Введите текст'
+        self.fields['group'].empty_label = 'Выберите группу'
+
     class Meta:
         model = Post
         fields = (

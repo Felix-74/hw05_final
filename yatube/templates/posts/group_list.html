@@ -3,20 +3,13 @@
     Записи сообщества
 {% endblock %}
 {% block content %}
-    <div class="container py-5">
-        <h1>
-            {{ group.title }}
-        </h1>
-        <p>
-            {{ group.description|linebreaks }}
-        </p>
-        {% for post in page_obj %}
-            {% include "posts/includes/article.html" with post=post show_group=False %}
-            {% if not forloop.last %}
-                <hr>
-            {% endif %}
-        {% endfor %}
-        </article>
-    </div>
+    <h1>{{ group.title }}</h1>
+    <p>{{ group.description|linebreaks }}</p>
+    {% for post in page_obj %}
+        {% include "posts/includes/article.html" with post=post show_group=False show_author=True %}
+        {% if not forloop.last %}
+            <hr>
+        {% endif %}
+    {% endfor %}
     {% include "posts/includes/paginator.html" %}
 {% endblock %}

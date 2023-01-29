@@ -1,5 +1,6 @@
 <article>
     <ul>
+        {% if show_author %}
         <li>
             Автор: <a href="{% url 'posts:profile' post.author %}">
             {% if post.author.get_full_name %}
@@ -9,6 +10,7 @@
             {% endif %}
         </a>
         </li>
+        {% endif %}
         <li>
             Дата публикации: {{ post.pub_date|date:"d E Y" }}
         </li>

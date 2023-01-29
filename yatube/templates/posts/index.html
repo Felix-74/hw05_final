@@ -3,17 +3,15 @@
     Последние обновления на странице
 {% endblock title %}
 {% block content %}
-    <div class="container py-5">
-        {% load cache %}
-        {% include 'posts/includes/switcher.html' %}
-        <h1>Последние обновления на странице</h1>
-        {% cache 20 index_page %}
-            {% for post in page_obj %}
-                {% include "posts/includes/article.html" with post=post show_group=True %}
-                {% if not forloop.last %}
-                    <hr>{% endif %}
-            {% endfor %}
-            {% include 'posts/includes/paginator.html' %}
-            </div>
-        {% endcache %}
+    {% load cache %}
+    {% include 'posts/includes/switcher.html' %}
+    <h1>Последние обновления на странице</h1>
+    {% cache 20 index_page %}
+        {% for post in page_obj %}
+            {% include "posts/includes/article.html" with post=post show_group=True show_author=True %}
+            {% if not forloop.last %}
+                <hr>{% endif %}
+        {% endfor %}
+        {% include 'posts/includes/paginator.html' %}
+    {% endcache %}
 {% endblock %}
